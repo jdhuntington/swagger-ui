@@ -5,6 +5,7 @@ class HeaderView extends Backbone.View
     'click #explore'                : 'showCustom'
     'keyup #input_baseUrl'          : 'showCustomOnKeyup'
     'keyup #input_apiKey'           : 'showCustomOnKeyup'
+    'keyup #input_apiSecret'        : 'showCustomOnKeyup'
   }
 
   initialize: ->
@@ -27,12 +28,17 @@ class HeaderView extends Backbone.View
 
   showCustom: (e) ->
     e?.preventDefault()
-    @trigger(
-      'update-swagger-ui'
-      {discoveryUrl: $('#input_baseUrl').val(), apiKey: $('#input_apiKey').val()}
-    )
+    @trigger 'update-swagger-ui',
+      discoveryUrl: $('#input_baseUrl').val()
+      apiKey:       $('#input_apiKey').val()
+      apiSecret:    $('#input_apiSecret').val()
 
-  update: (url, apiKey, trigger = false) ->
+  update: (url, apiKey, apiSecret, trigger = false) ->
     $('#input_baseUrl').val url
     $('#input_apiKey').val apiKey
-    @trigger 'update-swagger-ui', {discoveryUrl:url, apiKey:apiKey} if trigger
+    $('#input_apiSecret').val apiSecret
+    if trigger
+      @trigger 'update-swagger-ui',
+        discoveryUrl: url
+        apiKey:       apiKey
+        apiSecret:    apiSecret

@@ -29,20 +29,21 @@ class SwaggerUi extends Backbone.Router
     # Create view to handle the header inputs
     @headerView = new HeaderView({el: $('#header')})
 
-    # Event handler for when the baseUrl/apiKey is entered by user
+    # Event handler for when the baseUrl/apiKey/apiSecret is entered by user
     @headerView.on 'update-swagger-ui', (data) => @updateSwaggerUi(data)
 
-  # Event handler for when url/key is received from user
+  # Event handler for when url/key/secret is received from user
   updateSwaggerUi: (data) ->
     @options.discoveryUrl = data.discoveryUrl
     @options.apiKey = data.apiKey
+    @options.apiSecret = data.apiSecret
     @load()
 
   # Create an api and render
   load: ->
     # Initialize the API object
     @mainView?.clear()
-    @headerView.update(@options.discoveryUrl, @options.apiKey)
+    @headerView.update(@options.discoveryUrl, @options.apiKey, @options.apiSecret)
     @api = new SwaggerApi(@options)
 
   # This is bound to success handler for SwaggerApi

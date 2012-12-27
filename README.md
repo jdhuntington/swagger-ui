@@ -82,10 +82,13 @@ If you have some header parameters which you need to send with every request, us
 
      headers: { "Authorization": "XXXX", "someOtherHeader": "YYYY" }
 
-### Api Key Parameter
+### API Key Parameter
 If you enter an api key in swagger-ui, it sends a parameter named 'api\_key' as a query (or as a header param if you've enabled it as described above). You may not want to use the name 'api\_key' as the name of this parameter. You can change its name by setting the _apiKeyName_ parameter when you instantiate a SwaggerUI instance. For example to call it 'sessionId'
 
     apiKeyName: "sessionId"
+
+### API Secret Parameter
+Although not included in the sample index.html, you can add an apiSecret input alongside apiKey.  This will be timestamped and encrypted, adding 'timestamp' and 'api\_token' parameters.  You can change these names with _apiTimestampName_ and _apiTokenName_.
 
 How to Improve It
 -----------------
